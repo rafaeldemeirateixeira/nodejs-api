@@ -14,7 +14,7 @@ export const knex: any = {
             directory: './database/migrations'
         },
         seeds: {
-            directory: './database/seeds'
+            directory: './database/seeders'
         }
     },
     'sqlite3': {

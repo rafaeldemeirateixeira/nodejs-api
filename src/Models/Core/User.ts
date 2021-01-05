@@ -1,10 +1,14 @@
+import { Wallet } from './Wallet';
 import bcrypt from 'bcryptjs';
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, BelongsTo, HasOne } from 'sequelize';
 import { SequelizeConnection } from './../../../database/SequelizeConnection';
 
-const PROTECTED_ATTRIBUTES = ['password', 'created_at', 'updated_at']
-
 export class User extends Model {
+    /**
+     * Array<string>
+     */
+    hidden: Array<string> = ['password', 'created_at', 'updated_at'];
+
     /**
      * @var string
      */
@@ -31,13 +35,23 @@ export class User extends Model {
     account!: string;
 
     /**
+     * @var Wallet
+     */
+    wallet!: Wallet;
+
+    /**
      * @var string
      */
     name!: string;
 
+    /**
+     * Remove protected attributes
+     *
+     * @return object
+     */
     toJSON(): object {
         let attributes = Object.assign({}, this.get())
-        for (let a of PROTECTED_ATTRIBUTES) {
+        for (let a of this.hidden) {
             delete attributes[a]
         }
         return attributes
@@ -67,24 +81,24 @@ User.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    created_at: {
-        type: DataTypes.DATE
-    },
-    updated_at: {
-        type: DataTypes.DATE
-    },
+    }
 }, {
     sequelize: SequelizeConnection.init(),
-    modelName: 'user',
     timestamps: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at',
+    underscored: true,
+    name: {
+        singular: 'user',
+        plural: 'users',
+    },
     hooks: {
         beforeSave: (user) => {
             user.password = bcrypt.hashSync(user.password, 8);
         }
-    }
+    },
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
 });
+
+User.hasOne(Wallet, { foreignKey: 'user_id', as: 'wallet' });
 
 export default User;

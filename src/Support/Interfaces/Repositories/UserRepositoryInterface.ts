@@ -26,4 +26,10 @@ export interface UserRepositoryInterface {
      * @return Promise<User>
      */
     getUserByEmail(email: string): Promise<User>
+
+    /**
+     * @param taxNumber string 
+     * @returns Promise<User>
+     */
+    getUserByTaxNumber(taxNumber: string): Promise<User>
 }

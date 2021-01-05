@@ -7,18 +7,22 @@ import User from '../../../src/Models/Core/User';
 const server = request(app);
 let user: User;
 
-beforeEach(async () => {
-    user = await User.create({
-        tax_number: faker.random.number(99999999999).toString(),
-        email: faker.internet.email().toLowerCase(),
-        name: faker.name.findName(),
-        account: faker.random.arrayElement(['personal', 'company']),
-        password: bcrypt.hashSync('password', 8)
+afterEach(async () => {
+    User.findByPk(user.id).then((user) => {
+        user?.destroy()
     })
-})
+});
 
 describe('AuthController', () => {
     test('Authenticate with success', async (done) => {
+        user = await User.create({
+            tax_number: faker.random.number(99999999999).toString(),
+            email: faker.internet.email().toLowerCase(),
+            name: faker.name.findName(),
+            account: faker.random.arrayElement(['personal', 'company']),
+            password: 'password'
+        })
+
         await server
             .post('/auth/login')
             .send({

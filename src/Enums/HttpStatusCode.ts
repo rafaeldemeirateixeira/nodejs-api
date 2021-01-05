@@ -1,43 +1,43 @@
-export const HttpStatusCode = {
-    BadRequest: 400,
-    Unauthorized: 401,
-    PaymentRequired: 402,
-    Forbidden: 403,
-    NotFound: 404,
-    MethodNotAllowed: 405,
-    NotAcceptable: 406,
-    ProxyAuthenticationRequired: 407,
-    RequestTimeout: 408,
-    Conflict: 409,
-    Gone: 410,
-    LengthRequired: 411,
-    PreconditionFailed: 412,
-    PayloadTooLarge: 413,
-    URITooLong: 414,
-    UnsupportedMediaType: 415,
-    RangeNotSatisfiable: 416,
-    ExpectationFailed: 417,
-    ImATeapot: 418,
-    MisdirectedRequest: 421,
-    UnprocessableEntity: 422,
-    Locked: 423,
-    FailedDependency: 424,
-    UnorderedCollection: 425,
-    UpgradeRequired: 426,
-    PreconditionRequired: 428,
-    TooManyRequests: 429,
-    RequestHeaderFieldsTooLarge: 431,
-    UnavailableForLegalReasons: 451,
-    InternalServerError: 500,
-    NotImplemented: 501,
-    BadGateway: 502,
-    ServiceUnavailable: 503,
-    GatewayTimeout: 504,
-    HTTPVersionNotSupported: 505,
-    VariantAlsoNegotiates: 506,
-    InsufficientStorage: 507,
-    LoopDetected: 508,
-    BandwidthLimitExceeded: 509,
-    NotExtended: 510,
-    NetworkAuthenticationRequired: 511,
+export class HttpStatusCode {
+    public static BadRequest: number = 400;
+    public static Unauthorized: number = 401;
+    public static PaymentRequired: number = 402;
+    public static Forbidden: number = 403;
+    public static NotFound: number = 404;
+    public static MethodNotAllowed: number = 405;
+    public static NotAcceptable: number = 406;
+    public static ProxyAuthenticationRequired: number = 407;
+    public static RequestTimeout: number = 408;
+    public static Conflict: number = 409;
+    public static Gone: number = 410;
+    public static LengthRequired: number = 411;
+    public static PreconditionFailed: number = 412;
+    public static PayloadTooLarge: number = 413;
+    public static URITooLong: number = 414;
+    public static UnsupportedMediaType: number = 415;
+    public static RangeNotSatisfiable: number = 416;
+    public static ExpectationFailed: number = 417;
+    public static ImATeapot: number = 418;
+    public static MisdirectedRequest: number = 421;
+    public static UnprocessableEntity: number = 422;
+    public static Locked: number = 423;
+    public static FailedDependency: number = 424;
+    public static UnorderedCollection: number = 425;
+    public static UpgradeRequired: number = 426;
+    public static PreconditionRequired: number = 428;
+    public static TooManyRequests: number = 429;
+    public static RequestHeaderFieldsTooLarge: number = 431;
+    public static UnavailableForLegalReasons: number = 451;
+    public static InternalServerError: number = 500;
+    public static NotImplemented: number = 501;
+    public static BadGateway: number = 502;
+    public static ServiceUnavailable: number = 503;
+    public static GatewayTimeout: number = 504;
+    public static HTTPVersionNotSupported: number = 505;
+    public static VariantAlsoNegotiates: number = 506;
+    public static InsufficientStorage: number = 507;
+    public static LoopDetected: number = 508;
+    public static BandwidthLimitExceeded: number = 509;
+    public static NotExtended: number = 510;
+    public static NetworkAuthenticationRequired: number = 511;
 }

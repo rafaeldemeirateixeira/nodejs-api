@@ -1,3 +1,5 @@
+import { HttpStatusCode } from './../Enums/HttpStatusCode';
+import { Wallet } from './../Models/Core/Wallet';
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { User } from './../Models/Core/User';
@@ -7,18 +9,18 @@ export const authMiddleware = (request: Request, response: Response, next: NextF
     const { authorization } = request.headers;
 
     if (!authorization) {
-        return response.status(401).send('No token provided');
+        return response.status(HttpStatusCode.Unauthorized).send('No token provided');
     }
 
     jwt.verify(authorization, auth.jwt_secret, async (error: any, decoded: any) => {
         if (error) {
-            return response.status(401).send('Failed to authenticate token.');
+            return response.status(HttpStatusCode.Unauthorized).send('Failed to authenticate token.');
         }
 
         const user = await User.findByPk(decoded.id);
 
         if (!user) {
-            return response.status(401).send('Unauthorized token');
+            return response.status(HttpStatusCode.Unauthorized).send('Unauthorized token');
         }
 
         request.user = user;

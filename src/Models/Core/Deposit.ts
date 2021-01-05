@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import { SequelizeConnection } from '../../../database/SequelizeConnection';
 
-export class Deposit extends Model { }
+export class Deposit extends Model {
+    id!: number;
+}
 
 Deposit.init({
     user_id: {
@@ -20,11 +22,15 @@ Deposit.init({
         type: DataTypes.ENUM('transfer', 'deposit'),
         allowNull: false,
         defaultValue: 'deposit'
-    }
+    },
+    txid: {
+        type: DataTypes.STRING,
+    },
 }, {
     sequelize: SequelizeConnection.init(),
     modelName: 'deposit',
     timestamps: true,
+    underscored: true,
 });
 
 export default Deposit;

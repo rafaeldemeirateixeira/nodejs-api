@@ -1,4 +1,3 @@
-import Item from "../../../Models/Core/Item";
 import User from "../../../Models/Core/User";
 
 export interface UserServiceInterface {

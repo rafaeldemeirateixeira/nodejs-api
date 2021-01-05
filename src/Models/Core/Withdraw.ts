@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import { SequelizeConnection } from '../../../database/SequelizeConnection';
 
-export class Withdraw extends Model { }
+export class Withdraw extends Model {
+    id!: number;
+}
 
 Withdraw.init({
     user_id: {
@@ -20,11 +22,15 @@ Withdraw.init({
         type: DataTypes.ENUM('transfer', 'withdraw'),
         allowNull: false,
         defaultValue: 'withdraw'
-    }
+    },
+    txid: {
+        type: DataTypes.STRING,
+    },
 }, {
     sequelize: SequelizeConnection.init(),
     modelName: 'withdraw',
     timestamps: true,
+    underscored: true,
 });
 
 export default Withdraw;

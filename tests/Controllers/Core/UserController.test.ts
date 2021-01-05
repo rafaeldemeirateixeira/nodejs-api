@@ -1,6 +1,6 @@
 import request from 'supertest';
-import app from '../../server';
 import faker from 'faker';
+import app from '../../../server';
 
 const server = request(app);
 const taxNumber = faker.random.number(99999999999).toString();

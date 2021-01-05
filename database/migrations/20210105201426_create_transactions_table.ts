@@ -1,25 +1,30 @@
 import { TransactionType } from './../../src/Enums/TypeTransaction';
 import * as Knex from "knex";
+import { string } from "mathjs";
 
-const tableName = 'deposits';
+const tableName = 'transactions';
 
 export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(tableName, table => {
         table.bigIncrements('id').primary();
 
-        table.bigInteger('user_id')
+        table.bigInteger('deposit_id')
             .unsigned()
             .notNullable()
             .references('id')
-            .inTable('users');
+            .inTable('deposits');
+
+        table.bigInteger('withdraw_id')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('withdraws');
+
+        table.enum('type', [TransactionType.DEPOSIT, TransactionType.TRANSFER, TransactionType.WITHDRAW])
+            .defaultTo(TransactionType.DEPOSIT)
+            .notNullable();
 
         table.decimal('amount', 24, 8).notNullable();
-        table.decimal('fee', 24, 8).defaultTo(0);
-
-        table.enum('type', [TransactionType.TRANSFER, TransactionType.DEPOSIT])
-            .notNullable()
-            .defaultTo(TransactionType.DEPOSIT);
-
         table.string('txid').notNullable();
         table.timestamps();
     });
@@ -29,3 +34,4 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
     return knex.schema.dropTable(tableName);
 }
+

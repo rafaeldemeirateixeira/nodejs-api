@@ -60,7 +60,7 @@ export class AuthService extends Service implements AuthServiceInterface {
                 }
             }
 
-            throw new HttpException(401, "Invalid credentials");
+            throw new HttpException(401, "Wrong credentials");
 
         } catch (error) {
             throw new HttpException(401, "Invalid credentials");

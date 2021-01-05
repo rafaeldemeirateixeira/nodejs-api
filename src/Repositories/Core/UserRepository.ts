@@ -54,4 +54,21 @@ export class UserRepository implements UserRepositoryInterface {
 
         return user;
     }
+
+    /**
+     * @param taxNumber string 
+     * @returns Promise<User>
+     */
+    async getUserByTaxNumber(taxNumber: string): Promise<User> {
+        let user = await User.findOne({
+            where: { tax_number: taxNumber },
+            include: ['wallet']
+        });
+
+        if (!user) {
+            throw new NotFoundException("Not found user");
+        }
+
+        return user;
+    }
 }
