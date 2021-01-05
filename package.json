@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev  --inspect --ignore-watch node_modules --files index.ts",
     "migrate": "npx knex migrate:latest",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles",
+    "reset": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run"
   },
   "keywords": [],
   "author": "",
