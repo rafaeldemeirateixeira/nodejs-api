@@ -1,5 +1,5 @@
-# NodeJS-api
-A small API written in NodeJS
+# NodeJS API
+A small API written in NodeJS and TypeScript
 
 
 ## Setup
