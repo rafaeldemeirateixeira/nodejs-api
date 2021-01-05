@@ -1,0 +1,50 @@
+version: '3.3'
+services:
+  nodejs:
+    container_name: nodejs
+    env_file: 
+      - .env
+    build:
+      context: .
+      dockerfile: docker/config/nodejs/dev.Dockerfile
+    environment:
+      NODE_ENV: development
+    tty: true
+    volumes:
+      - ./:/app
+    ports:
+      - "${DOCKER_SERVER_PORT}:3000"
+    networks:
+      - app-network
+
+  app_mysql:
+    image: mysql:5.7
+    env_file:
+      - .env
+    container_name: app_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - app_data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  app_data:
+    driver: local
+    
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
