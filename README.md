@@ -63,5 +63,5 @@ To restart the database run:
 $ docker-compose exec nodejs npm run reset
 ```
 
-### 7 - Tests
+### 8 - Tests
 In development!!! :)
