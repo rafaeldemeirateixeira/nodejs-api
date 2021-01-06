@@ -1,5 +1,4 @@
 import { HttpStatusCode } from './../Enums/HttpStatusCode';
-import { Wallet } from './../Models/Core/Wallet';
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { User } from './../Models/Core/User';
