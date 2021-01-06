@@ -40,7 +40,12 @@ $ docker-compose exec nodejs npx knex migrate:latest
 $ docker-compose exec nodejs npx knex seed:run
 ```
 
-### 5 - Use collection Postman to test the API
+### 5 - Run application
+```
+$ docker-compose exec nodejs npm run dev
+```
+
+### 6 - Use collection Postman to test the API
 Import the collection into the Postman client [Collection](https://www.getpostman.com/collections/36825d4962e67c5e9c8f)
 
 Test credentials:
@@ -52,7 +57,7 @@ Test credentials:
 }
 ```
 
-### 6 - Reset database
+### 7 - Reset database
 To restart the database run:
 ```
 $ docker-compose exec nodejs npm run reset
