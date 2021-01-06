@@ -1,5 +1,4 @@
 import { HttpStatusCode } from './../Enums/HttpStatusCode';
-import { Wallet } from './../Models/Core/Wallet';
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { User } from './../Models/Core/User';
@@ -17,7 +16,12 @@ export const authMiddleware = (request: Request, response: Response, next: NextF
             return response.status(HttpStatusCode.Unauthorized).send('Failed to authenticate token.');
         }
 
-        const user = await User.findByPk(decoded.id);
+        const user = await User.findOne({
+            where: {
+                id: decoded.id,
+                token: authorization
+            }
+        });
 
         if (!user) {
             return response.status(HttpStatusCode.Unauthorized).send('Unauthorized token');

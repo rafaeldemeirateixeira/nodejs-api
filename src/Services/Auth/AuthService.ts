@@ -1,3 +1,4 @@
+import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { HttpException } from './../../Exceptions/Http/HttpException';
 import { injectable } from 'inversify';
 import { AuthServiceInterface } from './../../Support/Interfaces/Services/AuthServiceInterface';
@@ -28,6 +29,7 @@ export class AuthService extends Service implements AuthServiceInterface {
     /**
      * @param data any
      * @return Promise<User>
+     * @throws HttpException
      */
     async authenticate(data: any): Promise<object> {
         switch (data.grant_type) {
@@ -45,25 +47,31 @@ export class AuthService extends Service implements AuthServiceInterface {
      *
      * @param email string
      * @param password string
+     * @returns Promise<object>
+     * @throws HttpException | Error
      */
     async password(email: string, password: string): Promise<object> {
         try {
             let user: User = await this.userRepository.getUserByEmail(email);
 
-            if (await this.compare(user, password)) {
-                let token = this.getToken(user.id);
-                return {
-                    id: user.id,
-                    token,
-                    expires: auth.expires_in,
-                    grant_type: 'password'
-                }
+            if (!await this.compare(user, password)) {
+                throw new HttpException(HttpStatusCode.Unauthorized, "Wrong credentials");
             }
 
-            throw new HttpException(401, "Wrong credentials");
+            let token = this.getToken(user.id);
 
+            if (!await this.setToken(user.id, token)) {
+                throw new HttpException(HttpStatusCode.Forbidden, "User not authorized");
+            }
+
+            return {
+                id: user.id,
+                token,
+                expires: auth.expires_in,
+                grant_type: 'password'
+            }
         } catch (error) {
-            throw new HttpException(401, "Invalid credentials");
+            throw error;
         }
     }
 
@@ -84,5 +92,14 @@ export class AuthService extends Service implements AuthServiceInterface {
         return jwt.sign({ id }, auth.jwt_secret, {
             expiresIn: auth.expires_in
         })
+    }
+
+    /**
+     * @param userId number
+     * @param token string
+     * @return Promise<boolean>
+     */
+    private async setToken(userId: number, token: string): Promise<boolean> {
+        return await this.userRepository.registerToken(userId, token);
     }
 }

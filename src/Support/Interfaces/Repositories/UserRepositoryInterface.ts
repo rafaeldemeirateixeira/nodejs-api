@@ -1,3 +1,4 @@
+import { CreateOptions } from 'sequelize/types';
 import User from "../../../Models/Core/User";
 
 export interface UserRepositoryInterface {
@@ -32,4 +33,12 @@ export interface UserRepositoryInterface {
      * @returns Promise<User>
      */
     getUserByTaxNumber(taxNumber: string): Promise<User>
+
+    /**
+     * @param userId number
+     * @param token strign
+     * @param options CreateOptions<any>
+     * @return Promise<boolean>
+     */
+    registerToken(userId: number, token: string, options?: CreateOptions<any>): Promise<boolean>
 }
