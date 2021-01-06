@@ -76,7 +76,7 @@ export class TransferService extends Service implements TransferServiceInterface
         const receiverWallet: Wallet = receiverUser.wallet;
 
         if (senderWallet.getBalance() < data.amount) {
-            throw new HttpException(412, "Insufficient funds");
+            throw new HttpException(HttpStatusCode.PreconditionFailed, "Insufficient funds");
         }
 
         if (data.document == senderUser.tax_number) {
@@ -127,7 +127,7 @@ export class TransferService extends Service implements TransferServiceInterface
         } catch (error) {
             // TODO: Registrar logs de erros
             console.log(error);
-            throw new HttpException(500, "Internal error");
+            throw new HttpException(HttpStatusCode.InternalServerError, "Internal error");
         }
     }
 }

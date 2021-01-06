@@ -1,3 +1,4 @@
+import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { injectable } from 'inversify';
 import { HttpException } from './../../Exceptions/Http/HttpException';
 import { REPOSITORY_IDENTIFIER } from './../../Enums/RepositoryIdentifier';
@@ -29,12 +30,12 @@ export class UserService extends Service implements UserServiceInterface {
     async store(data: User): Promise<User> {
         const isEmailUnique = await this.userRepository.isEmailUnique(data.email);
         if (!isEmailUnique) {
-            throw new HttpException(400, 'Email data conflict found.');
+            throw new HttpException(HttpStatusCode.BadRequest, 'Email data conflict found.');
         }
 
         const isTaxNumberUnique = await this.userRepository.isTaxNumberUnique(data.tax_number);
         if (!isTaxNumberUnique) {
-            throw new HttpException(400, 'Tax number data conflict found.');
+            throw new HttpException(HttpStatusCode.BadRequest, 'Tax number data conflict found.');
         }
 
         return await this.userRepository.create(data);
