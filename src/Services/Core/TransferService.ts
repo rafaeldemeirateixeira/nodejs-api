@@ -1,3 +1,4 @@
+import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { TransactionType } from './../../Enums/TypeTransaction';
 import { SequelizeConnection } from './../../../database/SequelizeConnection';
 import { HttpException } from './../../Exceptions/Http/HttpException';
@@ -76,6 +77,10 @@ export class TransferService extends Service implements TransferServiceInterface
 
         if (senderWallet.getBalance() < data.amount) {
             throw new HttpException(412, "Insufficient funds");
+        }
+
+        if (data.document == senderUser.tax_number) {
+            throw new HttpException(HttpStatusCode.Conflict, "The recipient's account is the same as the sender");
         }
 
         try {
