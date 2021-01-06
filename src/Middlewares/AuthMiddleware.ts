@@ -16,7 +16,12 @@ export const authMiddleware = (request: Request, response: Response, next: NextF
             return response.status(HttpStatusCode.Unauthorized).send('Failed to authenticate token.');
         }
 
-        const user = await User.findByPk(decoded.id);
+        const user = await User.findOne({
+            where: {
+                id: decoded.id,
+                token: authorization
+            }
+        });
 
         if (!user) {
             return response.status(HttpStatusCode.Unauthorized).send('Unauthorized token');

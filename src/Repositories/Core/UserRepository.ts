@@ -1,3 +1,4 @@
+import { CreateOptions } from 'sequelize/types';
 import { NotFoundException } from './../../Exceptions/Http/NotFoundException';
 import { UserRepositoryInterface } from '../../Support/Interfaces/Repositories/UserRepositoryInterface';
 import { injectable } from 'inversify';
@@ -70,5 +71,21 @@ export class UserRepository implements UserRepositoryInterface {
         }
 
         return user;
+    }
+
+    /**
+     * @param userId number
+     * @param token string
+     * @return Promise<boolean>
+     */
+    async registerToken(userId: number, token: string, options?: CreateOptions<any>): Promise<boolean> {
+        const user = await User.update({
+            token
+        }, {
+            where: { id: userId },
+            transaction: options?.transaction
+        })
+
+        return user.shift() === 1;
     }
 }

@@ -1,11 +1,11 @@
 import { Wallet } from './Wallet';
 import bcrypt from 'bcryptjs';
-import { Model, DataTypes, BelongsTo, HasOne } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { SequelizeConnection } from './../../../database/SequelizeConnection';
 
 export class User extends Model {
     /**
-     * Array<string>
+     * @var Array<string>
      */
     hidden: Array<string> = ['password', 'created_at', 'updated_at'];
 
@@ -45,6 +45,11 @@ export class User extends Model {
     name!: string;
 
     /**
+     * @var string
+     */
+    token!: string;
+
+    /**
      * Remove protected attributes
      *
      * @return object
@@ -81,6 +86,9 @@ User.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    token: {
+        type: DataTypes.TEXT
     }
 }, {
     sequelize: SequelizeConnection.init(),
