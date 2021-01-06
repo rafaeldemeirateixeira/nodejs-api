@@ -43,7 +43,7 @@ export const sequelize: any = {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        logging: process.env.DB_SHOW_SQL,
+        logging: String(process.env.DB_SHOW_SQL) == "true",
         define: {
             charset: 'utf8',
             collate: 'utf8_general_ci',
