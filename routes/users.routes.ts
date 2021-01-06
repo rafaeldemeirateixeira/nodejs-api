@@ -1,6 +1,6 @@
 import { authMiddleware } from './../src/Middlewares/AuthMiddleware';
 import { Router } from 'express';
-import { userValidator } from './../src/Validators/Core/UserValidator';
+import { userValidator } from '../src/Http/Validators/Core/UserValidator';
 import { UserController } from '../src/Http/Controllers/Core/UserController';
 
 const userController = new UserController();
