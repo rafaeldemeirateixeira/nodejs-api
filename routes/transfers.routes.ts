@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { TransferController } from '../src/Http/Controllers/Core/TransferController';
-import { transferValidator } from './../src/Validators/Core/TransferValidator';
+import { transferValidator } from '../src/Http/Validators/Core/TransferValidator';
 import { authMiddleware } from '../src/Middlewares/AuthMiddleware';
 
 const transferController = new TransferController();
