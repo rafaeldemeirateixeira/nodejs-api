@@ -7,7 +7,7 @@ export class User extends Model {
     /**
      * @var Array<string>
      */
-    hidden: Array<string> = ['password', 'created_at', 'updated_at'];
+    private hidden: Array<string> = ['password', 'token', 'created_at', 'updated_at'];
 
     /**
      * @var string

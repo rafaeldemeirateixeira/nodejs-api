@@ -6,7 +6,7 @@ export class Transaction extends Model {
     /**
      * @var Array<string>
      */
-    hidden: Array<string> = ['created_at', 'updated_at']
+    private hidden: Array<string> = ['created_at', 'updated_at']
 
     /**
      * @var number
