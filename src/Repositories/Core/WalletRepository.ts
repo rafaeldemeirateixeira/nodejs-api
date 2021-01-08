@@ -1,16 +1,24 @@
+import { CreateOptions } from 'sequelize/types';
 import { NotFoundException } from './../../Exceptions/Http/NotFoundException';
 import { injectable } from 'inversify';
 import { WalletRepositoryInterface } from '../../Support/Interfaces/Repositories/WalletRepositoryInterface';
 import Wallet from '../../Models/Core/Wallet';
+import { BaseRepository } from '../BaseRepository';
 
 @injectable()
-export class WalletRepository implements WalletRepositoryInterface {
+export class WalletRepository extends BaseRepository<Wallet, Wallet> implements WalletRepositoryInterface {
+
+    constructor() {
+        super();
+        this.boot(Wallet);
+    }
+
     /**
      * @param object data
      * @return Promise<Wallet>
      */
-    async create(data: object): Promise<Wallet> {
-        return await Wallet.create(data)
+    async createWallet(data: Wallet['_creationAttributes'], options?: CreateOptions<Wallet>): Promise<Wallet> {
+        return await this.create(data, options);
     }
 
     /**

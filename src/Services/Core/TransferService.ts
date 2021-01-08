@@ -85,7 +85,7 @@ export class TransferService extends Service implements TransferServiceInterface
 
         try {
             const transfer = await SequelizeConnection.init().transaction(async (transaction) => {
-                const withdraw = await this.withdrawRepository.create({
+                const withdraw = await this.withdrawRepository.createWithdraw({
                     user_id: senderUser.id,
                     amount: data.amount,
                     type: TransactionType.TRANSFER,
@@ -97,7 +97,7 @@ export class TransferService extends Service implements TransferServiceInterface
                 senderWallet.removeBalance(data.amount);
                 await senderWallet.save({ transaction: transaction });
 
-                const deposit = await this.depositRepository.create({
+                const deposit = await this.depositRepository.createDeposit({
                     user_id: receiverUser.id,
                     amount: data.amount,
                     type: TransactionType.TRANSFER,
@@ -107,7 +107,7 @@ export class TransferService extends Service implements TransferServiceInterface
                 receiverWallet.addBalance(data.amount);
                 await receiverWallet.save({ transaction: transaction });
 
-                const transfer = await this.transactionRepository.create({
+                const transfer = await this.transactionRepository.createTransaction({
                     deposit_id: deposit.id,
                     withdraw_id: withdraw.id,
                     amount: data.amount,

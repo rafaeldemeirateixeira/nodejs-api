@@ -2,15 +2,22 @@ import { injectable } from 'inversify';
 import { TransactionRepositoryInterface } from '../../Support/Interfaces/Repositories/TransactionRepositoryInterface';
 import Transaction from '../../Models/Core/Transaction';
 import { CreateOptions } from 'sequelize/types';
+import { BaseRepository } from '../BaseRepository';
 
 @injectable()
-export class TransactionRepository implements TransactionRepositoryInterface {
+export class TransactionRepository extends BaseRepository<Transaction, Transaction> implements TransactionRepositoryInterface {
+
+    constructor() {
+        super();
+        this.boot(Transaction);
+    }
+
     /**
      * @param object data
      * @return Promise<Transaction>
      */
-    async create(data: object, options?: CreateOptions<any>): Promise<Transaction> {
-        return await Transaction.create(data, options)
+    async createTransaction(data: Transaction['_creationAttributes'], options?: CreateOptions<any>): Promise<Transaction> {
+        return await this.create(data, options)
     }
 
     /**

@@ -1,3 +1,4 @@
+import { CreateOptions } from 'sequelize/types';
 import Wallet from "../../../Models/Core/Wallet";
 
 export interface WalletRepositoryInterface {
@@ -7,7 +8,7 @@ export interface WalletRepositoryInterface {
      * @param object data
      * @return Promise<Wallet>
      */
-    create(data: object): Promise<Wallet>
+    createWallet(data: Wallet['_creationAttributes'], options?: CreateOptions<Wallet>): Promise<Wallet>
 
     /**
      * @param id number

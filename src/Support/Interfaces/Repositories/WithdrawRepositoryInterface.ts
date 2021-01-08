@@ -8,5 +8,5 @@ export interface WithdrawRepositoryInterface {
      * @param object data
      * @return Promise<Withdraw>
      */
-    create(data: object, options?: CreateOptions<any>): Promise<Withdraw>
+    createWithdraw(data: Withdraw['_creationAttributes'], options?: CreateOptions<any>): Promise<Withdraw>
 }
