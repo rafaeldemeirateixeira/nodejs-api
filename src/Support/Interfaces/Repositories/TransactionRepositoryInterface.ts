@@ -8,7 +8,7 @@ export interface TransactionRepositoryInterface {
      * @param object data
      * @return Promise<Transaction>
      */
-    create(data: object, options?: CreateOptions<any>): Promise<Transaction>
+    createTransaction(data: Transaction['_creationAttributes'], options?: CreateOptions<any>): Promise<Transaction>
 
     /**
      * List all transactions

@@ -1,5 +1,6 @@
 import { injectable } from "inversify";
 import * as Sequelize from "sequelize";
+import { ModelStatic } from "sequelize";
 
 @injectable()
 export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
@@ -51,7 +52,7 @@ export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
      * @returns Promise<K>
      */
     async create(
-        attributes: T,
+        attributes: T['_creationAttributes'],
         options?: Sequelize.FindOrCreateOptions<T['_attributes'], T['_creationAttributes']>
     ): Promise<K> {
         return this.model.create<T>(attributes, options);

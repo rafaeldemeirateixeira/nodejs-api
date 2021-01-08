@@ -7,5 +7,5 @@ export interface UserServiceInterface {
      * @param data User
      * @return Promise<User>
      */
-    store(data: User): Promise<User>
+    store(data: User['_creationAttributes']): Promise<User>
 }

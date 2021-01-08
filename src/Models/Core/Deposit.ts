@@ -3,6 +3,14 @@ import { SequelizeConnection } from '../../../database/SequelizeConnection';
 
 export class Deposit extends Model {
     id!: number;
+
+    user_id!: number;
+
+    amount!: number;
+
+    type!: string;
+
+    txid!: string;
 }
 
 Deposit.init({

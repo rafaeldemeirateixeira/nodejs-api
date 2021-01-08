@@ -17,8 +17,8 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
      * @param object data
      * @return Promise<User>
      */
-    async createUser(data: User): Promise<User> {
-        return await this.create(data)
+    async createUser(data: User['_creationAttributes'], options?: CreateOptions<User>): Promise<User> {
+        return await this.create(data, options);
     }
 
     /**

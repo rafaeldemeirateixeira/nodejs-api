@@ -8,5 +8,5 @@ export interface DepositRepositoryInterface {
      * @param object data
      * @return Promise<Deposit>
      */
-    create(data: object, options?: CreateOptions<any>): Promise<Deposit>
+    createDeposit(data: Deposit['_creationAttributes'], options?: CreateOptions<any>): Promise<Deposit>
 }
