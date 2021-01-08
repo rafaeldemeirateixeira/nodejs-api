@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import * as Sequelize from "sequelize";
-import { ModelStatic } from "sequelize";
+import { ModelStatic, WhereOptions } from "sequelize";
 
 @injectable()
 export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
@@ -70,7 +70,17 @@ export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
     public async update(
         attributes: Partial<T>,
         options: Sequelize.UpdateOptions<T>
-    ): Promise<[number, T[]]> {
+    ): Promise<[number, K[]]> {
         return this.model.update<T>(attributes, options);
+    }
+
+    /**
+     * Search for multiple instances.
+     *
+     * @param attributes 
+     * @param options 
+     */
+    public async findAll(attributes?: WhereOptions<T>, options?: Sequelize.FindOptions<T>): Promise<K[]> {
+        return this.model.findAll<T>({ ...options, where: attributes })
     }
 }

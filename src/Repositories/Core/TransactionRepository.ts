@@ -24,6 +24,6 @@ export class TransactionRepository extends BaseRepository<Transaction, Transacti
      * @returns Promise<Array<Transaction>>
      */
     async getAllTransactions(): Promise<Array<Transaction>> {
-        return await Transaction.findAll();
+        return await this.findAll();
     }
 }
