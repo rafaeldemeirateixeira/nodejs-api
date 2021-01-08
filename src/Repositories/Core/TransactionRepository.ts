@@ -13,7 +13,7 @@ export class TransactionRepository extends BaseRepository<Transaction, Transacti
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<Transaction>
      */
     async createTransaction(data: Transaction['_creationAttributes'], options?: CreateOptions<any>): Promise<Transaction> {

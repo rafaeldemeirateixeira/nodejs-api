@@ -14,7 +14,7 @@ export class WalletRepository extends BaseRepository<Wallet, Wallet> implements 
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<Wallet>
      */
     async createWallet(data: Wallet['_creationAttributes'], options?: CreateOptions<Wallet>): Promise<Wallet> {
@@ -22,12 +22,12 @@ export class WalletRepository extends BaseRepository<Wallet, Wallet> implements 
     }
 
     /**
-     * @param id number
+     * @param id
      * @returns Promise<Wallet>
      * @throws NotFoundException
      */
     async getUserWallet(id: number): Promise<Wallet> {
-        let wallet = await Wallet.findByPk(id);
+        let wallet = await this.findByPk(id);
 
         if (!wallet) {
             throw new NotFoundException("Wallet not found");

@@ -14,6 +14,12 @@ export class UserController extends Controller {
         this.userService = this.container.get<UserServiceInterface>(SERVICE_IDENTIFIER.UserServiceInterface);
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param request
+     * @param response
+     */
     async store(request: Request, response: Response) {
         const user = await this.userService.store(request.body);
         return response.status(201).json(user);

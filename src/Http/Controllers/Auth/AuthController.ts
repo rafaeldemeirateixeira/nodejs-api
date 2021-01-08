@@ -15,6 +15,12 @@ export class AuthController extends Controller {
         this.authService = this.container.get<AuthServiceInterface>(SERVICE_IDENTIFIER.AuthServiceInterface);
     }
 
+    /**
+     * Authenticate user.
+     *
+     * @param request
+     * @param response
+     */
     async login(request: Request, response: Response) {
         const user = await this.authService.authenticate(request.body);
         return response.status(201).json(user);

@@ -14,7 +14,7 @@ export class WithdrawRepository extends BaseRepository<Withdraw, Withdraw> imple
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<Withdraw>
      */
     async createWithdraw(data: Withdraw['_creationAttributes'], options?: CreateOptions<any>): Promise<Withdraw> {

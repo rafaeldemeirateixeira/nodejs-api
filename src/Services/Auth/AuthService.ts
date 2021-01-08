@@ -1,3 +1,4 @@
+import { Auth } from '../../../@types/services';
 import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { HttpException } from './../../Exceptions/Http/HttpException';
 import { injectable } from 'inversify';
@@ -27,11 +28,11 @@ export class AuthService extends Service implements AuthServiceInterface {
     }
 
     /**
-     * @param data any
+     * @param data
      * @return Promise<User>
      * @throws HttpException
      */
-    async authenticate(data: any): Promise<object> {
+    async authenticate(data: Auth): Promise<object> {
         switch (data.grant_type) {
             case 'password':
                 return await this.password(data.email, data.password)

@@ -1,16 +1,18 @@
+import { Auth } from '../../../../@types/services';
 export interface AuthServiceInterface {
     /**
      * Authenticate user
      *
-     * @param data object
+     * @param data
      * @return object
      */
-    authenticate(data: any): object
+    authenticate(data: Auth): object
 
     /**
-     * 
-     * @param email string
-     * @param password string
+     * Authenticate user by password.
+     *
+     * @param email
+     * @param password
      * @returns Promise<Object>
      */
     password(email: string, password: string): Promise<Object>
