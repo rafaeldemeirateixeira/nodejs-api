@@ -13,7 +13,7 @@ export class DepositRepository extends BaseRepository<Deposit, Deposit> implemen
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<Deposit>
      */
     async createDeposit(data: Deposit['_creationAttributes'], options?: CreateOptions<any>): Promise<Deposit> {

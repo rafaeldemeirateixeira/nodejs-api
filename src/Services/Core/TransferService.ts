@@ -15,6 +15,7 @@ import { User } from '../../Models/Core/User';
 import { UserRepositoryInterface } from '../../Support/Interfaces/Repositories/UserRepositoryInterface';
 import { TransactionRepositoryInterface } from '../../Support/Interfaces/Repositories/TransactionRepositoryInterface';
 import Transaction from '../../Models/Core/Transaction';
+import { Transfer } from '../../../@types/services';
 
 @injectable()
 export class TransferService extends Service implements TransferServiceInterface {
@@ -60,15 +61,19 @@ export class TransferService extends Service implements TransferServiceInterface
             .get<TransactionRepositoryInterface>(REPOSITORY_IDENTIFIER.TransactionRepositoryInterface);
     }
 
+    /**
+     * @return Promise<Array<Transaction>>
+     */
     async index(): Promise<Array<Transaction>> {
         return await this.transactionRepository.getAllTransactions();
     }
 
     /**
-     * @param object data
+     * @param user
+     * @param data
      * @return Promise<object>
      */
-    async store(user: User, data: { document: string, amount: number }): Promise<object> {
+    async store(user: User, data: Transfer): Promise<object> {
         const txid = uuid();
         const senderUser: User = await user.reload({ include: ['wallet'] });
         const senderWallet: Wallet = senderUser.wallet;

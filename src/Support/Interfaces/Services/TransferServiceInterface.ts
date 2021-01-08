@@ -1,3 +1,4 @@
+import { Transfer } from './../../../../@types/services/index.d';
 import { Transaction } from "../../../Models/Core/Transaction";
 import User from "../../../Models/Core/User";
 
@@ -9,7 +10,7 @@ export interface TransferServiceInterface {
      * @param data object
      * @return Promise<object>
      */
-    store(user: User, data: object): Promise<object>
+    store(user: User, data: Transfer): Promise<object>
 
     /**
      * List all transfers

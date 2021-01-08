@@ -33,7 +33,7 @@ export class UserService extends Service implements UserServiceInterface {
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<User>
      */
     async store(data: User['_creationAttributes']): Promise<User> {
@@ -49,7 +49,6 @@ export class UserService extends Service implements UserServiceInterface {
 
         try {
             const createUser = await SequelizeConnection.init().transaction(async (transaction) => {
-
                 const user = await this.userRepository.createUser(data, {
                     transaction
                 });

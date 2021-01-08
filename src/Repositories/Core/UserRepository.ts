@@ -14,7 +14,7 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
     }
 
     /**
-     * @param object data
+     * @param data
      * @return Promise<User>
      */
     async createUser(data: User['_creationAttributes'], options?: CreateOptions<User>): Promise<User> {
@@ -22,7 +22,7 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
     }
 
     /**
-     * @param string email
+     * @param email
      * @returns Promise<boolean>
      */
     async isEmailUnique(email: string): Promise<boolean> {
@@ -32,7 +32,7 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
     }
 
     /**
-     * @param string taxNumber
+     * @param taxNumber
      * @returns Promise<boolean>
      */
     async isTaxNumberUnique(taxNumber: string): Promise<boolean> {
@@ -58,7 +58,7 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
     }
 
     /**
-     * @param taxNumber string 
+     * @param taxNumber 
      * @returns Promise<User>
      */
     async getUserByTaxNumber(taxNumber: string): Promise<User> {
@@ -75,8 +75,8 @@ export class UserRepository extends BaseRepository<User, User> implements UserRe
     }
 
     /**
-     * @param userId number
-     * @param token string
+     * @param userId
+     * @param token
      * @return Promise<boolean>
      */
     async registerToken(userId: number, token: string, options?: CreateOptions<any>): Promise<boolean> {
