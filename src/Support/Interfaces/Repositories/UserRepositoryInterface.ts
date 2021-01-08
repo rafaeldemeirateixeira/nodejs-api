@@ -8,7 +8,7 @@ export interface UserRepositoryInterface {
      * @param object data
      * @return Promise<User>
      */
-    create(data: object): Promise<User>
+    createUser(data: object): Promise<User>
 
     /**
      * @param string email

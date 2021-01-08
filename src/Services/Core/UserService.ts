@@ -38,6 +38,6 @@ export class UserService extends Service implements UserServiceInterface {
             throw new HttpException(HttpStatusCode.BadRequest, 'Tax number data conflict found.');
         }
 
-        return await this.userRepository.create(data);
+        return await this.userRepository.createUser(data);
     }
 }
