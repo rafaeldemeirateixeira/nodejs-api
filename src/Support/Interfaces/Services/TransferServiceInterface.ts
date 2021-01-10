@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { Transfer } from './../../../../@types/services/index.d';
 import { Transaction } from "../../../Models/Core/Transaction";
 import User from "../../../Models/Core/User";
@@ -17,5 +18,5 @@ export interface TransferServiceInterface {
      *
      * @return Promise<object>
      */
-    index(): Promise<Array<Transaction>>
+    index(request: Request): Promise<{ total: number, data: Transaction[] }>
 }

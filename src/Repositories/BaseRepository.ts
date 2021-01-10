@@ -67,7 +67,7 @@ export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
      * @param options Sequelize.UpdateOptions<T>
      * @returns Promise<[number, T[]]>
      */
-    public async update(
+    async update(
         attributes: Partial<T>,
         options: Sequelize.UpdateOptions<T>
     ): Promise<[number, K[]]> {
@@ -80,7 +80,23 @@ export abstract class BaseRepository<T extends Sequelize.Model<T> & K, K> {
      * @param attributes 
      * @param options 
      */
-    public async findAll(attributes?: WhereOptions<T>, options?: Sequelize.FindOptions<T>): Promise<K[]> {
+    async findAll(attributes?: WhereOptions<T>, options?: Sequelize.FindOptions<T>): Promise<K[]> {
         return this.model.findAll<T>({ ...options, where: attributes })
+    }
+
+    async paginate(
+        attributes?: WhereOptions<T>,
+        options?: Sequelize.FindAndCountOptions<T>,
+        page: number = 1,
+        size: number = 15
+    ): Promise<{ total: number, data: K[] }> {
+        const limit = size ? size : 3;
+        const offset = page && page !== 1 ? (page - 1) * limit : 0;
+        const result = await this.model.findAndCountAll<T>({ ...options, where: attributes, limit, offset });
+
+        return {
+            total: result.count,
+            data: result.rows
+        };
     }
 }

@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { TransferController } from '../src/Http/Controllers/Core/TransferController';
-import { transferValidator } from '../src/Http/Validators/Core/TransferValidator';
+import { createTransfer, getAllTransfer } from '../src/Http/Validators/Core/TransferValidator';
 import { authMiddleware } from '../src/Middlewares/AuthMiddleware';
 
 const transferController = new TransferController();
 const router = Router();
 
-router.post('/', transferValidator, authMiddleware, async (request, response, next) => {
+router.post('/', createTransfer, authMiddleware, async (request, response, next) => {
     try {
         return await transferController.store(request, response);
     } catch (error) {
@@ -14,7 +14,7 @@ router.post('/', transferValidator, authMiddleware, async (request, response, ne
     }
 });
 
-router.get('/', authMiddleware, async (request, response, next) => {
+router.get('/', getAllTransfer, authMiddleware, async (request, response, next) => {
     try {
         return await transferController.index(request, response);
     } catch (error) {
