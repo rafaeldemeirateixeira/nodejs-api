@@ -1,4 +1,4 @@
-import { SequelizeConnection } from './../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 import { WalletRepositoryInterface } from './../../Support/Interfaces/Repositories/WalletRepositoryInterface';
 import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { injectable } from 'inversify';
@@ -48,7 +48,7 @@ export class UserService extends Service implements UserServiceInterface {
         }
 
         try {
-            const createUser = await SequelizeConnection.init().transaction(async (transaction) => {
+            const createUser = await Database.connection().transaction(async (transaction) => {
                 const user = await this.userRepository.createUser(data, {
                     transaction
                 });

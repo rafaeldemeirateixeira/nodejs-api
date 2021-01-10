@@ -1,6 +1,6 @@
 import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { TransactionType } from './../../Enums/TypeTransaction';
-import { SequelizeConnection } from './../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 import { HttpException } from './../../Exceptions/Http/HttpException';
 import { Wallet } from './../../Models/Core/Wallet';
 import { injectable } from 'inversify';
@@ -89,7 +89,7 @@ export class TransferService extends Service implements TransferServiceInterface
         }
 
         try {
-            const transfer = await SequelizeConnection.init().transaction(async (transaction) => {
+            const transfer = await Database.connection().transaction(async (transaction) => {
                 const withdraw = await this.withdrawRepository.createWithdraw({
                     user_id: senderUser.id,
                     amount: data.amount,

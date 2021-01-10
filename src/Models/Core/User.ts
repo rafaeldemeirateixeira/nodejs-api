@@ -1,7 +1,7 @@
 import { Wallet } from './Wallet';
 import bcrypt from 'bcryptjs';
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeConnection } from './../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 
 export class User extends Model {
     /**
@@ -91,7 +91,7 @@ User.init({
         type: DataTypes.TEXT
     }
 }, {
-    sequelize: SequelizeConnection.init(),
+    sequelize: Database.connection(),
     timestamps: true,
     underscored: true,
     name: {

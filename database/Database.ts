@@ -3,7 +3,7 @@ import { sequelize } from '../config/database';
 
 const db: any = process.env.DB_CONNECTION;
 
-export class SequelizeConnection {
+export class Database {
     /**
      * @var Sequelize
      */
@@ -13,11 +13,11 @@ export class SequelizeConnection {
         //
     }
 
-    static init() {
-        if (!SequelizeConnection.instance) {
-            SequelizeConnection.instance = new Sequelize(sequelize[db]);
+    static connection() {
+        if (!this.instance) {
+            this.instance = new Sequelize(sequelize[db]);
         }
 
-        return SequelizeConnection.instance;
+        return this.instance;
     }
 }
