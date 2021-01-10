@@ -15,5 +15,5 @@ export interface TransactionRepositoryInterface {
      *
      * @returns Promise<Array<Transaction>>
      */
-    getAllTransactions(): Promise<Array<Transaction>>
+    getAllTransactions(page?: number): Promise<{ total: number, data: Transaction[] }>
 }

@@ -23,7 +23,7 @@ export class TransactionRepository extends BaseRepository<Transaction, Transacti
     /**
      * @returns Promise<Array<Transaction>>
      */
-    async getAllTransactions(): Promise<Array<Transaction>> {
-        return await this.findAll();
+    async getAllTransactions(page?: number): Promise<{ total: number, data: Transaction[] }> {
+        return await this.paginate({}, {}, page);
     }
 }

@@ -1,6 +1,7 @@
+import { Request } from 'express';
 import { HttpStatusCode } from './../../Enums/HttpStatusCode';
 import { TransactionType } from './../../Enums/TypeTransaction';
-import { SequelizeConnection } from './../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 import { HttpException } from './../../Exceptions/Http/HttpException';
 import { Wallet } from './../../Models/Core/Wallet';
 import { injectable } from 'inversify';
@@ -9,7 +10,6 @@ import { Service } from '../Service';
 import { TransferServiceInterface } from '../../Support/Interfaces/Services/TransferServiceInterface';
 import { DepositRepositoryInterface } from '../../Support/Interfaces/Repositories/DepositRepositoryInterface';
 import { WithdrawRepositoryInterface } from '../../Support/Interfaces/Repositories/WithdrawRepositoryInterface';
-import { WalletRepositoryInterface } from '../../Support/Interfaces/Repositories/WalletRepositoryInterface';
 import { v4 as uuid } from 'uuid';
 import { User } from '../../Models/Core/User';
 import { UserRepositoryInterface } from '../../Support/Interfaces/Repositories/UserRepositoryInterface';
@@ -30,11 +30,6 @@ export class TransferService extends Service implements TransferServiceInterface
     private withdrawRepository: WithdrawRepositoryInterface;
 
     /**
-     * @var WalletRepositoryInterface
-     */
-    private walletRepository: WalletRepositoryInterface;
-
-    /**
      * @var UserRepositoryInterface
      */
     private userRepository: UserRepositoryInterface;
@@ -53,8 +48,6 @@ export class TransferService extends Service implements TransferServiceInterface
             .get<DepositRepositoryInterface>(REPOSITORY_IDENTIFIER.DepositRepositoryInterface);
         this.withdrawRepository = this.container
             .get<WithdrawRepositoryInterface>(REPOSITORY_IDENTIFIER.WithdrawRepositoryInterface);
-        this.walletRepository = this.container
-            .get<WalletRepositoryInterface>(REPOSITORY_IDENTIFIER.WalletRepositoryInterface);
         this.userRepository = this.container
             .get<UserRepositoryInterface>(REPOSITORY_IDENTIFIER.UserRepositoryInterface);
         this.transactionRepository = this.container
@@ -64,8 +57,9 @@ export class TransferService extends Service implements TransferServiceInterface
     /**
      * @return Promise<Array<Transaction>>
      */
-    async index(): Promise<Array<Transaction>> {
-        return await this.transactionRepository.getAllTransactions();
+    async index(request: Request): Promise<{ total: number, data: Transaction[] }> {
+        const { page } = request.query;
+        return await this.transactionRepository.getAllTransactions(Number(page));
     }
 
     /**
@@ -89,7 +83,7 @@ export class TransferService extends Service implements TransferServiceInterface
         }
 
         try {
-            const transfer = await SequelizeConnection.init().transaction(async (transaction) => {
+            const transfer = await Database.connection().transaction(async (transaction) => {
                 const withdraw = await this.withdrawRepository.createWithdraw({
                     user_id: senderUser.id,
                     amount: data.amount,

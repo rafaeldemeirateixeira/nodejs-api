@@ -21,7 +21,7 @@ export class TransferController extends Controller {
      * @param response
      */
     async index(request: Request, response: Response) {
-        const transfers = await this.transferService.index();
+        const transfers = await this.transferService.index(request);
         return response.json(transfers);
     }
 

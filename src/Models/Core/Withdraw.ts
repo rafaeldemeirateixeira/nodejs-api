@@ -1,8 +1,36 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeConnection } from '../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 
 export class Withdraw extends Model {
+    /**
+     * @var number
+     */
     id!: number;
+
+    /**
+    * @var number
+    */
+    user_id!: number;
+
+    /**
+    * @var number
+    */
+    amount!: number;
+
+    /**
+    * @var number
+    */
+    fee!: number;
+
+    /**
+    * @var number
+    */
+    type!: string;
+
+    /**
+    * @var number
+    */
+    txid!: string;
 }
 
 Withdraw.init({
@@ -27,7 +55,7 @@ Withdraw.init({
         type: DataTypes.STRING,
     },
 }, {
-    sequelize: SequelizeConnection.init(),
+    sequelize: Database.connection(),
     modelName: 'withdraw',
     timestamps: true,
     underscored: true,

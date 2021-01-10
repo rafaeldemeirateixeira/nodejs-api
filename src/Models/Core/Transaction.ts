@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { SequelizeConnection } from '../../../database/SequelizeConnection';
+import { Database } from '../../../database/Database';
 import { TransactionType } from '../../Enums/TypeTransaction';
 
 export class Transaction extends Model {
@@ -12,6 +12,31 @@ export class Transaction extends Model {
      * @var number
      */
     id!: number;
+
+    /**
+     * @var number
+     */
+    deposit_id!: number;
+
+    /**
+     * @var number
+     */
+    withdraw_id!: number;
+
+    /**
+     * @var number
+     */
+    amount!: number;
+
+    /**
+     * @var number
+     */
+    type!: string;
+
+    /**
+     * @var number
+     */
+    txid!: string;
 
     /**
      * Remove protected attributes
@@ -49,7 +74,7 @@ Transaction.init({
         type: DataTypes.STRING,
     },
 }, {
-    sequelize: SequelizeConnection.init(),
+    sequelize: Database.connection(),
     modelName: 'transaction',
     timestamps: true,
     underscored: true,
